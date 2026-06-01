@@ -216,8 +216,14 @@ def analyze(text: str, display_name: str):
 
 
 def load_history():
-    status, table_md = _load_history_markdown()
-    return table_md, status
+    try:
+        status, table_md = _load_history_markdown()
+        return table_md, status
+    except Exception as exc:
+        return (
+            f"**Could not load history:** {html.escape(str(exc))}",
+            "Failed — try again or check MongoDB Atlas network access.",
+        )
 
 
 def build_ui() -> gr.Blocks:
@@ -266,15 +272,14 @@ def build_ui() -> gr.Blocks:
         message_out = gr.Markdown(label="Motivation")
 
         gr.Markdown("---")
-
-        with gr.Accordion("Saved history (MongoDB)", open=False):
-            gr.Markdown(
-                "Expand this section, then click **Load history**. "
-                "History is on the same page so the app stays stable."
-            )
-            load_history_btn = gr.Button("Load history", variant="secondary")
-            history_status = gr.Markdown("")
-            history_table = gr.Markdown(value="*Click Load history.*")
+        gr.Markdown("### Saved history")
+        gr.Markdown(
+            "Click **Load history** to fetch past analyses from MongoDB. "
+            "This runs in a separate process so the rest of the app keeps working."
+        )
+        load_history_btn = gr.Button("Load history", variant="secondary")
+        history_status = gr.Markdown("Ready.")
+        history_table = gr.Markdown(value="*No history loaded yet.*")
 
         gr.HTML(
             f'<div class="footer-authors">Built by <strong>{html.escape(AUTHORS)}</strong></div>'
