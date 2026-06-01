@@ -15,7 +15,7 @@ An end-to-end MLOps fitness app that reads how you feel about your workout (Engl
 
 **Authors: Zain, Usama, Ali**
 
-- GitHub: [rajazain2001](https://github.com/rajazain2001)
+- GitHub: [fitness-sentiment-mlops](https://github.com/rajazain2001/fitness-sentiment-mlops)
 - Hugging Face Space: [raja2001/fitness-sentiment-analyzer](https://huggingface.co/spaces/raja2001/fitness-sentiment-analyzer)
 
 ## Features
